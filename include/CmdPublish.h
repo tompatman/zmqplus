@@ -10,7 +10,6 @@
 #include <zmq.h>
 #include <Poco/NumberFormatter.h>
 #include <Poco/Thread.h>
-#include <core/ppcLogger.h>
 #include "zCmdStruct.h"
 #include "IPublish.h"
 #include <cstring>
@@ -25,9 +24,8 @@ class CmdPublish
         : public IPublish<msgData> {
 
 public:
-    CmdPublish(zmq::context_t &context, const Poco::UInt16 uiPort, ppcLogger &log, const std::string strSocket = "tcp://*:")
+    CmdPublish(zmq::context_t &context, const Poco::UInt16 uiPort, const std::string strSocket = "tcp://*:")
             : _uiPort(uiPort)
-              , _log(log)
               , _strSocket(zmqUtil::generateSocketFullPath(strSocket, uiPort))
     {
       _publisher = new zmq::socket_t(context, ZMQ_PUB);
@@ -41,10 +39,13 @@ public:
     };
 
 
-    void Init(const int queueSize = 100)
+    void Init(const int queueSize = 100, const int logLevel = LOG_INFO, const std::string strLogName = "Publisher")
     {
+      setlogmask(LOG_UPTO (logLevel));
 
-      _log.log(LG_DEBUG, "Creating a PUB socket at %s", _strSocket.c_str());
+      openlog(std::string("CmdPub_" + strLogName).c_str(), LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
+
+      syslog(LOG_DEBUG, "Creating a PUB socket at %s", _strSocket.c_str());
 
       //  Prepare our context and publisher
       _publisher->setsockopt(ZMQ_SNDHWM, &queueSize, sizeof(queueSize));
@@ -115,7 +116,6 @@ private:
     zmq::socket_t *_publisher;
     Poco::Mutex _mut;
     const Poco::UInt16 _uiPort;
-    ppcLogger &_log;
     std::string _strSocket;
     zmq::message_t *_zMsg;
     static const Poco::UInt32 NUM_BUFFERED_MESSAGES = 500;

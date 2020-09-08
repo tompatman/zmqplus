@@ -34,7 +34,7 @@ public:
 
       _pubProxy = new ZMQ::ProxyPublish<msgData>(context, PbPoco::Globals::ZMQ_PROXY_FRONT, _log, strProxyHost, uiChan, strDeviceID);
       ///Note: Using ipc because inproc doesn't work on the arm for some reason
-      _pubProc = new ZMQ::CmdPublish<msgData>(context, uiChan, _log, strInprocPrefix);
+      _pubProc = new ZMQ::CmdPublish<msgData>(context, uiChan, strInprocPrefix);
 
 
       //_pubProc = new ZMQ::CmdPublish<msgData>(context, uiChan, _log, "inproc://#");

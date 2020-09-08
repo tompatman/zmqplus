@@ -12,9 +12,8 @@
 #include <Poco/NumberFormatter.h>
 #include "zmq.hpp"
 #include "zCmdStruct.h"
-#include "core/ppcLogger.h"
-#include "core/systimer.h"
 #include <zmqUtil.h>
+#include <syslog.h>
 
 extern bool g_ForceIPC;
 namespace ZMQ {
@@ -23,10 +22,9 @@ class CmdPull {
 public:
     //The channel is a string identifier used to identify which messages to monitor, like an address
 
-    CmdPull(zmq::context_t &context, const Poco::UInt16 uiPort, ppcLogger &log,
+    CmdPull(zmq::context_t &context, const Poco::UInt16 uiPort,
             const std::string sock_str = "tcp://0.0.0.0:") //, const Poco::Int16 chanID = -1)
             : _uiPort(uiPort)
-              , _log(log)
               , _sock_str(sock_str + Poco::NumberFormatter::format(uiPort))
     {
       //_chanID = chanID;
@@ -39,14 +37,19 @@ public:
       _subscriber->close();
     };
 
-    void Init(const bool bConflate = false, const Poco::UInt16 queueSize = 100)
+    void Init(const bool bConflate = false, const Poco::UInt16 queueSize = 100, const int logLevel = LOG_INFO, const std::string strLogName = "CmdPull")
     {
 
       if (g_ForceIPC)
       {
         zmqUtil::generateIPCConversion(_sock_str);
       }
-      _log.log(LG_DEBUG, "Creating a PULL socket at %s", _sock_str.c_str());
+
+      setlogmask(LOG_UPTO (logLevel));
+
+      openlog(std::string("ModplusController_" + strLogName).c_str(), LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
+
+      syslog(LOG_DEBUG, "Creating a PULL socket at %s", _sock_str.c_str());
 
       _subscriber->bind(_sock_str);
 
@@ -131,7 +134,6 @@ private:
     msgData _incomingCmd;
     const Poco::UInt16 _uiPort;
 
-    ppcLogger &_log;
     std::string _sock_str;
 };
 

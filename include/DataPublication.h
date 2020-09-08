@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <syslog.h>
 #include "CmdPublish.h"
 #include "MultiPublish.h"
 
@@ -25,9 +26,9 @@ public:
       }
       else
       {
-        _dataPub = std::unique_ptr<ZMQ::IPublish<DataSetType>>(new ZMQ::CmdPublish<DataSetType>(context, pubSubPort, log, strSocket));
+        _dataPub = std::unique_ptr<ZMQ::IPublish<DataSetType>>(new ZMQ::CmdPublish<DataSetType>(context, pubSubPort, strSocket));
       }
-      _dataPub->Init(2);
+      _dataPub->Init(2, LOG_INFO, "CmdPublish");
     }
 
 

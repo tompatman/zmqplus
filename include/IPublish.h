@@ -8,6 +8,7 @@
 #pragma once
 
 
+#include <syslog.h>
 #include "zCmdStruct.h"
 
 namespace ZMQ {
@@ -20,10 +21,10 @@ namespace ZMQ {
 
 			void Init()
 			{
-				Init(30);
+        Init(30, LOG_INFO, "CmdPublish");
 			};
 
-			virtual void Init(int queueSize) = 0;
+			virtual void Init(const int queueSize, const int logLevel = LOG_INFO, const std::string strLogName = "Publisher") = 0;
 
 		virtual bool Send(const msgData &newData) = 0;
 

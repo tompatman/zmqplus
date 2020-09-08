@@ -11,7 +11,6 @@
 #include <Poco/NumberFormatter.h>
 #include <Poco/Thread.h>
 #include <zconf.h>
-#include <core/ppcLogger.h>
 #include "zmq.hpp"
 #include "IPublish.h"
 #include "ICmdPush.h"
@@ -26,10 +25,9 @@ class CmdPush
         : public ICmdPush { //: public IPublish <reqMsgData>{
 
 public:
-    CmdPush(zmq::context_t &context, const Poco::UInt16 uiPort, ppcLogger &log, const std::string strSocket = "tcp://0.0.0.0:")
+    CmdPush(zmq::context_t &context, const Poco::UInt16 uiPort, const std::string strSocket = "tcp://0.0.0.0:")
             : _uiPort(uiPort)
               , _strSocket(strSocket)
-              , _log(log)
     {
       _publisher = new zmq::socket_t(context, ZMQ_PUSH);
 
@@ -42,7 +40,7 @@ public:
     };
 
     //Virtual implementations
-    void Init(const Poco::UInt16 queueSize = 30)
+    void Init(const Poco::UInt16 queueSize = 30, const int logLevel = LOG_INFO, const std::string strLogName = "CmdPush")
     {
       _strFullSocketPath = _strSocket + Poco::NumberFormatter::format(_uiPort);
 
@@ -50,7 +48,13 @@ public:
       {
         zmqUtil::generateIPCConversion(_strFullSocketPath);
       }
-      _log.log(LG_DEBUG, "Creating a PUSH socket at %s", _strFullSocketPath.c_str());
+
+      setlogmask(LOG_UPTO (logLevel));
+
+      openlog(std::string( strLogName).c_str(), LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
+
+      syslog(LOG_INFO, "Creating a PUSH socket at %s", _strFullSocketPath.c_str());
+
 
       try
       {
@@ -60,7 +64,7 @@ public:
       }
       catch(std::exception &e)
       {
-        _log.log(LG_INFO, "*** Failed to create a PUSH socket at %s", _strFullSocketPath.c_str());
+        syslog(LOG_INFO, "*** Failed to create a PUSH socket at %s", _strFullSocketPath.c_str());
         throw e;
       }
 
@@ -113,7 +117,6 @@ private:
     const Poco::UInt16 _uiPort;
     const std::string _strSocket;
     std::string _strFullSocketPath;
-    ppcLogger &_log;
 };
 
 }
