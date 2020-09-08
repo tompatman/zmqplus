@@ -12,7 +12,7 @@
 #include <Poco/Thread.h>
 #include <zconf.h>
 #include <core/ppcLogger.h>
-#include "zmq/zmq.hpp"
+#include "zmq.hpp"
 #include "IPublish.h"
 #include "ICmdPush.h"
 #include "zmqUtil.h"

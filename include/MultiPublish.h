@@ -8,11 +8,11 @@
 #include <Poco/NumberFormatter.h>
 #include <Poco/Thread.h>
 #include <core/ppcLogger.h>
-#include <zmq/zCmdStruct.h>
-#include <zmq/IPublish.h>
+#include <zCmdStruct.h>
+#include <IPublish.h>
 #include <cstring>
-#include <zmq/CmdPublish.h>
-#include <zmq/ProxyPublish.h>
+#include <CmdPublish.h>
+#include <ProxyPublish.h>
 #include <Globals/CommandDefs.h>
 
 /**

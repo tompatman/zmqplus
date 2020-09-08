@@ -4,7 +4,7 @@
 
 #include "../include/PubSubProxy.h"
 #include "../include/zmqUtil.h"
-#include <zmq/zmq.hpp>
+#include <zmq.hpp>
 #include <core/ppcLogger.h>
 
 extern bool g_ForceIPC;

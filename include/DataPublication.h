@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "zmq/CmdPublish.h"
-#include "zmq/MultiPublish.h"
+#include "CmdPublish.h"
+#include "MultiPublish.h"
 
 
 namespace ZMQ {

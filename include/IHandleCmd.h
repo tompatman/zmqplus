@@ -5,13 +5,13 @@
 
 #pragma once
 
-#include "vionxCmdStruct.h"
+#include "tCtrlCmd.h"
 
 namespace ZMQ {
 
 class IHandleCmd {
 public:
-    virtual void handleCommand(ZMQ::vionxCmdStruct cmd) = 0;
+    virtual void handleCommand(ZMQ::tCtrlCmd cmd) = 0;
 };
 
 

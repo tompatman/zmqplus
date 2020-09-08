@@ -8,7 +8,7 @@
 #include <Poco/Thread.h>
 #include <Poco/NumberFormatter.h>
 #include <Poco/Net/IPAddress.h>
-#include "zmq/zmq.hpp"
+#include "zmq.hpp"
 #include "zCmdStruct.h"
 #include "core/ppcLogger.h"
 

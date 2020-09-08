@@ -9,7 +9,7 @@
 #define ICONSUMER_H_
 
 
-#include "zmq/zmq.hpp"
+#include "zmq.hpp"
 
 
 class iConsumer

@@ -10,7 +10,7 @@
 
 #include "core/ppcRunnable.h"
 #include "core/ppcLogger.h"
-#include "zmq/zmqBase.h"
+#include "zmqBase.h"
 #include "Poco/AtomicCounter.h"
 
 using Poco::AtomicCounter;

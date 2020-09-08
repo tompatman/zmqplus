@@ -6,7 +6,7 @@
 
 #include <Poco/SAX/ContentHandler.h>
 #include <Poco/SAX/LexicalHandler.h>
-#include <zmq/IDataResponder.h>
+#include <IDataResponder.h>
 #include <core/ppcLogger.h>
 
 namespace ZMQ {

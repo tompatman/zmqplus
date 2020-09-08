@@ -8,9 +8,9 @@
 #ifndef ZMQBASE_H_ASCD_1F5Y
 #define ZMQBASE_H_ASCD_1F5Y
 
-#include "zmq/zmq.hpp"
+#include "zmq.hpp"
 #include "core/ppcLogger.h"
-#include "zmq/IzmqBase.h"
+#include "IzmqBase.h"
 
 using std::string;
 

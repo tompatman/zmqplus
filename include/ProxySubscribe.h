@@ -10,9 +10,9 @@
 #include <zmq.h>
 #include <Poco/Thread.h>
 #include <Poco/NumberFormatter.h>
-#include "zmq/zmq.hpp"
-#include <zmq/zmqUtil.h>
-#include <zmq/ISubscribe.h>
+#include "zmq.hpp"
+#include <zmqUtil.h>
+#include <ISubscribe.h>
 #include "core/ppcLogger.h"
 #include "core/systimer.h"
 

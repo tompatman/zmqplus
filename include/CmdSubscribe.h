@@ -10,11 +10,11 @@
 #include <zmq.h>
 #include <Poco/Thread.h>
 #include <Poco/NumberFormatter.h>
-#include "zmq/zmq.hpp"
+#include "zmq.hpp"
 #include "core/ppcLogger.h"
 #include "core/systimer.h"
-#include <zmq/zmqUtil.h>
-#include <zmq/ISubscribe.h>
+#include <zmqUtil.h>
+#include <ISubscribe.h>
 
 extern bool g_ForceIPC;
 

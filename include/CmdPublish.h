@@ -14,7 +14,7 @@
 #include "zCmdStruct.h"
 #include "IPublish.h"
 #include <cstring>
-#include <zmq/zmqUtil.h>
+#include <zmqUtil.h>
 
 extern bool g_ForceIPC;
 

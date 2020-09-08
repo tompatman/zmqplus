@@ -10,7 +10,7 @@
 #include <Poco/Net/IPAddress.h>
 #include <zconf.h>
 #include <core/ppcLogger.h>
-#include "zmq/zmq.hpp"
+#include "zmq.hpp"
 #include "zCmdStruct.h"
 #include "IPublish.h"
 #include <string.h>

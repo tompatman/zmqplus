@@ -6,7 +6,7 @@
 #define MASTERPROJECT_MOCKZMQBASE_H
 
 #include <gmock/gmock.h>
-#include "zmq/IzmqBase.h"
+#include "IzmqBase.h"
 #include <core/ppcLogger.h>
 #include <Poco/Types.h>
 

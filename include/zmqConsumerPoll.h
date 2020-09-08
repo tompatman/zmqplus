@@ -8,8 +8,8 @@
 #ifndef ZMQCONSUMERPOLL_H_
 #define ZMQCONSUMERPOLL_H_
 
-#include "zmq/zmq.hpp"
-#include "zmq/iConsumer.h"
+#include "zmq.hpp"
+#include "iConsumer.h"
 #include "core/ppcLogger.h"
 
 #include <vector>

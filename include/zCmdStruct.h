@@ -8,8 +8,7 @@
 #pragma once
 
 #include <zmq.h>
-#include "zmq/zmq.hpp"
-#include "ipc/MsgQueue.h"
+#include "zmq.hpp"
 
 #include "Poco/Types.h"
 

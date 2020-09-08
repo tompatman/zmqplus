@@ -8,21 +8,19 @@
 #pragma once
 
 #include <zmq.h>
-#include "zmq/zmq.hpp"
-#include "ipc/MsgQueue.h"
+#include "zmq.hpp"
 #include <Poco/StringTokenizer.h>
 #include <Poco/NumberParser.h>
 #include "Poco/Types.h"
-#include <core/ppcLogger.h>
 
 namespace ZMQ {
 
 static const Poco::UInt16 vionx_MAX_TEXT_VALUE_LENGTH = 64;
 static const Poco::UInt16 vionx_MAX_VALUES = 8;
 
-typedef struct vionxCmdStruct {
+typedef struct tCtrlCmd {
 
-    vionxCmdStruct()
+    tCtrlCmd()
     {
       clear_data_object();
     };
@@ -46,14 +44,16 @@ typedef struct vionxCmdStruct {
     // ***********   Helper functions.
     void clear_data_object()
     {
-      memset(this, 0, sizeof(vionxCmdStruct));
+      memset(this, 0, sizeof(tCtrlCmd));
       cmd = -1;
       devId = -1;
     };
 
     void pack_source_loc(int locationEnum)
     {
-      if (snprintf(source, vionx_MAX_TEXT_VALUE_LENGTH, "%d", locationEnum) < 0) { ppclog(LG_ERR, "snprintf truncation"); }
+      if (snprintf(source, vionx_MAX_TEXT_VALUE_LENGTH, "%d", locationEnum) < 0) {
+        throw "snprintf truncation";
+      }
     };
 
     int unpack_source_loc()
@@ -78,7 +78,9 @@ typedef struct vionxCmdStruct {
 
       if(tok.count() != 2) throw Poco::InvalidArgumentException("Destination string not valid [" + std::string(input_chars) + "]");
 
-      if (snprintf(destination, vionx_MAX_TEXT_VALUE_LENGTH, input_chars) < 0) { ppclog(LG_ERR, "snprintf truncation"); }
+      if (snprintf(destination, vionx_MAX_TEXT_VALUE_LENGTH, input_chars) < 0) {
+        throw  "snprintf truncation";
+      }
     }
 
     static std::string convert_destination(int primaryLoc, int secondaryLoc)
@@ -89,7 +91,9 @@ typedef struct vionxCmdStruct {
 
     void pack_destination_loc(int primaryLoc, int secondaryLoc)
     {
-      if (snprintf(destination, vionx_MAX_TEXT_VALUE_LENGTH, "%d-%d", primaryLoc, secondaryLoc) < 0) { ppclog(LG_ERR, "snprintf truncation"); }
+      if (snprintf(destination, vionx_MAX_TEXT_VALUE_LENGTH, "%d-%d", primaryLoc, secondaryLoc) < 0) {
+        throw "snprintf truncation";
+      }
     };
 
     int unpack_destination_primaryLocation()

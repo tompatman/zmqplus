@@ -10,7 +10,7 @@
 
 #include "gmock/gmock.h"  // Brings in Google Mock.
 #include <stdint.h>
-#include "zmq/IDataResponder.h"
+#include "IDataResponder.h"
 
 namespace ZMQ {
 

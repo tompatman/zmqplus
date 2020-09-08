@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include <zmq/zmq.hpp>
-#include <zmq/CmdRequest.h>
+#include <zmq.hpp>
+#include <CmdRequest.h>
 #include <string>
 
 namespace ZMQ {
